@@ -25,7 +25,7 @@ const addTodo = async (req: Request, res: Response): Promise<void> => {
   try {
     const body = req.body as Pick<Todo, "name" | "description" | "status">;
 
-    const existing_todo = await TodoModel.find({ name: body.name });
+    const existing_todo = await TodoModel.findOne({ name: body.name });
     if (existing_todo) {
       throw new AlreadyExistError(
         `Todo with  name : ${body.name} is already exist , try with new name.`
@@ -37,7 +37,7 @@ const addTodo = async (req: Request, res: Response): Promise<void> => {
       description: body.description,
       status: body.status,
     });
-    console.log(todo);
+
     const newTodo = await todo.save();
 
     res.status(201).json({ message: "Todo added", todo: newTodo });

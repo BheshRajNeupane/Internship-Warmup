@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import { app } from "../app";
-
+import swaggerDocs from "../utils/swagger";
 
 // Function to handle uncaught exceptions
 process.on("uncaughtException", (err: Error) => {
@@ -11,13 +11,11 @@ process.on("uncaughtException", (err: Error) => {
 });
 
 mongoose
-  .connect(
-    "mongodb://127.0.0.1:27017/to-do"
-  )
+  .connect("mongodb://127.0.0.1:27017/to-do")
   .then(() => console.log("Database connected!"))
-  .catch((err:any) => console.log("Database connected Error :") )
+  .catch((err: any) => console.log("Database connected Error :"));
 
-const PORT: number =  3003;
+const PORT: number = 3003;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

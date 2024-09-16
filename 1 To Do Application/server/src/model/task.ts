@@ -1,5 +1,23 @@
 import mongoose, { model, Schema } from "mongoose";
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Todo:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: number
+ *         description:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         status:
+ *           type: boolean
+ */
+
 export interface Todo extends mongoose.Document {
   name: string;
   description: string;
@@ -24,7 +42,6 @@ const taskSchema: Schema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      select: false,
     },
 
     status: {
@@ -35,7 +52,7 @@ const taskSchema: Schema = new Schema(
   {
     toJSON: {
       transform(doc, ret) {
-        delete ret.__v;
+        delete ret.__v; // hide in response
       },
     },
   }
